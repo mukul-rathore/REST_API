@@ -1,22 +1,24 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 require('dotenv/config');
 
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
 
-// Middleware
-app.use('/posts', ()=> {
-    console.log('This is middleware Running!')
-})
+// Import Routes
+const postsRoutes = require('./routes/posts');
+app.use('/posts', postsRoutes);                               // Middleware
 
 
 // ROUTES
 app.get('/', (req, res) => {
     res.send('Welcome to Home!!!');
 });
-app.get('/posts', (req, res) => {
-    res.send('Welcome to Posts!!!');
-});
+
 
 
 
